@@ -46,6 +46,10 @@
 /// Returns a string containing the receiver encoded in JSON.
 - (NSString *)JSONRepresentation;
 
+/**
+ Returns a string containing the receiver encoded in JSON and error is set.
+ */
+- (NSString *)JSONRepresentation:(NSError**)error;
 @end
 
 #pragma mark JSON Parsing
@@ -56,6 +60,11 @@
 /// Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error
 - (id)JSONValue;
 
+/**
+ Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error with
+ error set.
+ */
+- (id)JSONValue:(NSError**)error;
 @end
 
 

@@ -32,14 +32,17 @@
 #import "SBJsonParser.h"
 
 @implementation NSObject (NSObject_SBJsonWriting)
-
-- (NSString *)JSONRepresentation {
-    SBJsonWriter *jsonWriter = [SBJsonWriter new];    
-    NSString *json = [jsonWriter stringWithObject:self];
+- (NSString *)JSONRepresentation:(NSError**)error {
+	SBJsonWriter *jsonWriter = [SBJsonWriter new];    
+    NSString *json = [jsonWriter stringWithObject:self error:error];
     if (!json)
         NSLog(@"-JSONRepresentation failed. Error is: %@", jsonWriter.error);
     [jsonWriter release];
     return json;
+}
+
+- (NSString *)JSONRepresentation {
+	return [self JSONRepresentation:nil];
 }
 
 @end
@@ -47,14 +50,17 @@
 
 
 @implementation NSString (NSString_SBJsonParsing)
-
-- (id)JSONValue {
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    id repr = [jsonParser objectWithString:self];
+- (id)JSONValue:(NSError**)error {
+	SBJsonParser *jsonParser = [SBJsonParser new];
+    id repr = [jsonParser objectWithString:self error:error];
     if (!repr)
         NSLog(@"-JSONValue failed. Error is: %@", jsonParser.error);
     [jsonParser release];
     return repr;
+}
+
+- (id)JSONValue {
+	return [self JSONValue:nil];
 }
 
 @end
